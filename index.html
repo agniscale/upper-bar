@@ -22,75 +22,79 @@
 
 <style>
     :root {
-        --glass: rgba(30, 30, 30, 0.45);
-        --border: rgba(255, 255, 255, 0.18);
-        --silver-grad: linear-gradient(180deg, #FFFFFF 0%, #A5A5A5 100%);
+        /* Mobile-friendly light glass */
+        --glass: rgba(25, 25, 25, 0.7);
+        --border: rgba(255, 255, 255, 0.1);
     }
 
-    body { background: #050505; margin: 0; }
+    /* Basic Reset */
+    body { background: #000; margin: 0; overflow-x: hidden; }
 
     .nav-wrapper {
         position: fixed;
-        top: 20px;
+        top: 15px; /* Mobile safe distance */
         left: 50%;
         transform: translateX(-50%);
-        width: 95%;
-        max-width: 550px;
+        width: 92%; /* Better mobile width */
+        max-width: 500px;
         z-index: 9999;
+        will-change: transform; /* Hardware acceleration */
     }
 
     .upper-bar {
         background: var(--glass);
-        backdrop-filter: blur(25px);
-        -webkit-backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(10px); /* Lower blur for performance */
+        backdrop-filter: blur(10px);
         border: 1px solid var(--border);
-        border-radius: 100px;
-        padding: 6px 10px 6px 25px;
+        border-radius: 50px;
+        padding: 5px 8px 5px 20px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.7);
     }
 
-    /* Premium Typography */
+    /* Running Silver Gradient Animation */
     .logo {
-        font-family: 'Cinzel', serif; /* Luxury Serif Font */
-        font-size: 20px;
-        letter-spacing: 2px;
+        font-family: 'Cinzel', serif;
+        font-size: 18px;
+        letter-spacing: 1.5px;
         text-transform: uppercase;
-        background: var(--silver-grad);
+        font-weight: 700;
+        background: linear-gradient(to right, #4d4d4d 0%, #fff 50%, #4d4d4d 100%);
+        background-size: 200% auto;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        font-weight: 700;
+        animation: silverFlow 3s linear infinite;
     }
-    
+
+    @keyframes silverFlow {
+        to { background-position: 200% center; }
+    }
+
     .logo span {
         font-family: 'Inter', sans-serif;
         font-weight: 400;
-        opacity: 0.8;
-        font-size: 16px;
-        margin-left: -2px;
+        font-size: 14px;
     }
 
-    /* Menu Logic */
+    /* Simple & Fast Menu Logic */
     .circular-menu {
         position: relative;
-        width: 45px;
-        height: 45px;
+        width: 40px;
+        height: 40px;
     }
 
     .menu-open { display: none; }
 
-    /* PERFECT CENTERING FIX */
     .menu-item, .menu-open-button {
         position: absolute;
-        width: 45px;
-        height: 45px;
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
-        display: flex;       /* Added Flex */
-        align-items: center;  /* Vertical Center */
-        justify-content: center; /* Horizontal Center */
-        transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease; /* Faster transition for no lag */
         cursor: pointer;
         text-decoration: none;
     }
@@ -99,54 +103,45 @@
         z-index: 10;
         background: #fff;
         color: #000;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
 
     .menu-item {
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.1);
         color: #fff;
-        font-size: 16px;
+        font-size: 14px;
         z-index: 5;
+        border: 1px solid var(--border);
     }
 
-    /* Home Active */
     .home-active {
         background: #fff;
         color: #000;
-        box-shadow: 0 0 20px rgba(255,255,255,0.25);
-    }
-
-    /* Icon Centering inside Menu Item */
-    .menu-item i {
-        display: block;
-        line-height: 1; /* Fixes alignment offset */
     }
 
     /* Burger Lines */
     .lines {
-        width: 16px;
+        width: 14px;
         height: 2px;
         background: #000;
         position: absolute;
-        transition: 0.3s;
     }
-    .line-1 { transform: translateY(-5px); }
-    .line-3 { transform: translateY(5px); }
+    .line-1 { transform: translateY(-4px); }
+    .line-3 { transform: translateY(4px); }
 
-    /* Toggle Animations */
-    .menu-open:checked + .menu-open-button .line-1 { transform: rotate(45deg); }
-    .menu-open:checked + .menu-open-button .line-2 { opacity: 0; }
-    .menu-open:checked + .menu-open-button .line-3 { transform: rotate(-45deg); }
+    /* Spread Distance - Mobile Optimized */
+    .menu-open:checked ~ .menu-item:nth-child(3) { transform: translate3d(-50px, 0, 0); }
+    .menu-open:checked ~ .menu-item:nth-child(4) { transform: translate3d(-95px, 0, 0); }
+    .menu-open:checked ~ .menu-item:nth-child(5) { transform: translate3d(-140px, 0, 0); }
 
-    /* Pop-out items (Left direction) */
-    .menu-open:checked ~ .menu-item:nth-child(3) { transform: translate3d(-60px, 0, 0); }
-    .menu-open:checked ~ .menu-item:nth-child(4) { transform: translate3d(-115px, 0, 0); }
-    .menu-open:checked ~ .menu-item:nth-child(5) { transform: translate3d(-170px, 0, 0); }
+    /* Hover effect reduced to prevent stutter on mobile */
+    @media (hover: hover) {
+        .menu-item:hover { background: #fff; color: #000; }
+    }
 
-    .menu-item:hover {
-        background: #fff;
-        color: #000;
-        transform: scale(1.15);
+    /* Extra Mobile Tweaks */
+    @media (max-width: 400px) {
+        .logo { font-size: 16px; }
+        .logo span { font-size: 12px; }
+        .nav-wrapper { width: 95%; }
     }
 </style>
