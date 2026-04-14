@@ -1,0 +1,152 @@
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="nav-wrapper">
+    <div class="upper-bar">
+        <div class="logo">Agni<span>Scale</span></div>
+        
+        <nav class="circular-menu">
+            <input type="checkbox" id="menu-open" class="menu-open">
+            <label class="menu-open-button" for="menu-open">
+                <span class="lines line-1"></span>
+                <span class="lines line-2"></span>
+                <span class="lines line-3"></span>
+            </label>
+
+            <a href="#" class="menu-item home-active"> <i class="fa fa-home"></i> </a>
+            <a href="#" class="menu-item"> <i class="fa fa-diamond"></i> </a>
+            <a href="#" class="menu-item"> <i class="fa fa-envelope"></i> </a>
+        </nav>
+    </div>
+</div>
+
+<style>
+    :root {
+        --glass: rgba(30, 30, 30, 0.45);
+        --border: rgba(255, 255, 255, 0.18);
+        --silver-grad: linear-gradient(180deg, #FFFFFF 0%, #A5A5A5 100%);
+    }
+
+    body { background: #050505; margin: 0; }
+
+    .nav-wrapper {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 95%;
+        max-width: 550px;
+        z-index: 9999;
+    }
+
+    .upper-bar {
+        background: var(--glass);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        border: 1px solid var(--border);
+        border-radius: 100px;
+        padding: 6px 10px 6px 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+    }
+
+    /* Premium Typography */
+    .logo {
+        font-family: 'Cinzel', serif; /* Luxury Serif Font */
+        font-size: 20px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        background: var(--silver-grad);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 700;
+    }
+    
+    .logo span {
+        font-family: 'Inter', sans-serif;
+        font-weight: 400;
+        opacity: 0.8;
+        font-size: 16px;
+        margin-left: -2px;
+    }
+
+    /* Menu Logic */
+    .circular-menu {
+        position: relative;
+        width: 45px;
+        height: 45px;
+    }
+
+    .menu-open { display: none; }
+
+    /* PERFECT CENTERING FIX */
+    .menu-item, .menu-open-button {
+        position: absolute;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        display: flex;       /* Added Flex */
+        align-items: center;  /* Vertical Center */
+        justify-content: center; /* Horizontal Center */
+        transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .menu-open-button {
+        z-index: 10;
+        background: #fff;
+        color: #000;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .menu-item {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid var(--border);
+        color: #fff;
+        font-size: 16px;
+        z-index: 5;
+    }
+
+    /* Home Active */
+    .home-active {
+        background: #fff;
+        color: #000;
+        box-shadow: 0 0 20px rgba(255,255,255,0.25);
+    }
+
+    /* Icon Centering inside Menu Item */
+    .menu-item i {
+        display: block;
+        line-height: 1; /* Fixes alignment offset */
+    }
+
+    /* Burger Lines */
+    .lines {
+        width: 16px;
+        height: 2px;
+        background: #000;
+        position: absolute;
+        transition: 0.3s;
+    }
+    .line-1 { transform: translateY(-5px); }
+    .line-3 { transform: translateY(5px); }
+
+    /* Toggle Animations */
+    .menu-open:checked + .menu-open-button .line-1 { transform: rotate(45deg); }
+    .menu-open:checked + .menu-open-button .line-2 { opacity: 0; }
+    .menu-open:checked + .menu-open-button .line-3 { transform: rotate(-45deg); }
+
+    /* Pop-out items (Left direction) */
+    .menu-open:checked ~ .menu-item:nth-child(3) { transform: translate3d(-60px, 0, 0); }
+    .menu-open:checked ~ .menu-item:nth-child(4) { transform: translate3d(-115px, 0, 0); }
+    .menu-open:checked ~ .menu-item:nth-child(5) { transform: translate3d(-170px, 0, 0); }
+
+    .menu-item:hover {
+        background: #fff;
+        color: #000;
+        transform: scale(1.15);
+    }
+</style>
