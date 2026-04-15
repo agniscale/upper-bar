@@ -1,147 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<!-- ✅ MOBILE FIX -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AgniScale</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<style>
+:root {
+    --glass: rgba(25, 25, 25, 0.7);
+    --border: rgba(255, 255, 255, 0.1);
+}
+
+/* Reset */
+*{margin:0;padding:0;box-sizing:border-box;}
+body { background: #000; overflow-x: hidden; font-family: 'Inter', sans-serif; }
+
+/* NAV */
+.nav-wrapper {
+    position: fixed;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 92%;
+    max-width: 500px;
+    z-index: 9999;
+}
+
+.upper-bar {
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    padding: 5px 8px 5px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* LOGO */
+.logo {
+    font-family: 'Cinzel', serif;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    background: linear-gradient(to right, #4d4d4d 0%, #fff 50%, #4d4d4d 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: silverFlow 3s linear infinite;
+}
+
+@keyframes silverFlow {
+    to { background-position: 200% center; }
+}
+
+.logo span {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+/* MENU */
+.circular-menu {
+    position: relative;
+    width: 40px;
+    height: 40px;
+}
+
+.menu-open { display: none; }
+
+.menu-item, .menu-open-button {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.menu-open-button {
+    z-index: 10;
+    background: #fff;
+    color: #000;
+}
+
+.menu-item {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 14px;
+    z-index: 5;
+    border: 1px solid var(--border);
+}
+
+/* ACTIVE */
+.home-active {
+    background: #fff;
+    color: #000;
+}
+
+/* BURGER */
+.lines {
+    width: 14px;
+    height: 2px;
+    background: #000;
+    position: absolute;
+}
+.line-1 { transform: translateY(-4px); }
+.line-2 { }
+.line-3 { transform: translateY(4px); }
+
+/* MENU SPREAD */
+.menu-open:checked ~ .menu-item:nth-child(3) { transform: translate3d(-50px, 0, 0); }
+.menu-open:checked ~ .menu-item:nth-child(4) { transform: translate3d(-95px, 0, 0); }
+.menu-open:checked ~ .menu-item:nth-child(5) { transform: translate3d(-140px, 0, 0); }
+
+/* HOVER */
+@media (hover: hover) {
+    .menu-item:hover { background: #fff; color: #000; }
+}
+
+/* MOBILE */
+@media (max-width: 400px) {
+    .logo { font-size: 16px; }
+    .logo span { font-size: 12px; }
+    .nav-wrapper { width: 95%; }
+}
+</style>
+</head>
+
+<body>
+
 <div class="nav-wrapper">
     <div class="upper-bar">
+
         <div class="logo">Agni<span>Scale</span></div>
-        
+
         <nav class="circular-menu">
             <input type="checkbox" id="menu-open" class="menu-open">
+
             <label class="menu-open-button" for="menu-open">
                 <span class="lines line-1"></span>
                 <span class="lines line-2"></span>
                 <span class="lines line-3"></span>
             </label>
 
-            <a href="#" class="menu-item home-active"> <i class="fa fa-home"></i> </a>
-            <a href="#" class="menu-item"> <i class="fa fa-diamond"></i> </a>
-            <a href="#" class="menu-item"> <i class="fa fa-envelope"></i> </a>
+            <!-- ✅ WORKING LINKS -->
+            <a href="/home" class="menu-item home-active">
+                <i class="fa fa-home"></i>
+            </a>
+
+            <a href="/work" class="menu-item">
+                <i class="fa fa-diamond"></i>
+            </a>
+
+            <a href="/contact" class="menu-item">
+                <i class="fa fa-envelope"></i>
+            </a>
+
         </nav>
     </div>
 </div>
 
-<style>
-    :root {
-        /* Mobile-friendly light glass */
-        --glass: rgba(25, 25, 25, 0.7);
-        --border: rgba(255, 255, 255, 0.1);
+<!-- OPTIONAL AUTO ACTIVE SCRIPT -->
+<script>
+const links = document.querySelectorAll('.menu-item');
+
+links.forEach(link => {
+    if (link.getAttribute('href') === window.location.pathname) {
+        link.classList.add('home-active');
+    } else {
+        link.classList.remove('home-active');
     }
+});
+</script>
 
-    /* Basic Reset */
-    body { background: #000; margin: 0; overflow-x: hidden; }
-
-    .nav-wrapper {
-        position: fixed;
-        top: 15px; /* Mobile safe distance */
-        left: 50%;
-        transform: translateX(-50%);
-        width: 92%; /* Better mobile width */
-        max-width: 500px;
-        z-index: 9999;
-        will-change: transform; /* Hardware acceleration */
-    }
-
-    .upper-bar {
-        background: var(--glass);
-        -webkit-backdrop-filter: blur(10px); /* Lower blur for performance */
-        backdrop-filter: blur(10px);
-        border: 1px solid var(--border);
-        border-radius: 50px;
-        padding: 5px 8px 5px 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    /* Running Silver Gradient Animation */
-    .logo {
-        font-family: 'Cinzel', serif;
-        font-size: 18px;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        font-weight: 700;
-        background: linear-gradient(to right, #4d4d4d 0%, #fff 50%, #4d4d4d 100%);
-        background-size: 200% auto;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        animation: silverFlow 3s linear infinite;
-    }
-
-    @keyframes silverFlow {
-        to { background-position: 200% center; }
-    }
-
-    .logo span {
-        font-family: 'Inter', sans-serif;
-        font-weight: 400;
-        font-size: 14px;
-    }
-
-    /* Simple & Fast Menu Logic */
-    .circular-menu {
-        position: relative;
-        width: 40px;
-        height: 40px;
-    }
-
-    .menu-open { display: none; }
-
-    .menu-item, .menu-open-button {
-        position: absolute;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: transform 0.3s ease; /* Faster transition for no lag */
-        cursor: pointer;
-        text-decoration: none;
-    }
-
-    .menu-open-button {
-        z-index: 10;
-        background: #fff;
-        color: #000;
-    }
-
-    .menu-item {
-        background: rgba(255, 255, 255, 0.1);
-        color: #fff;
-        font-size: 14px;
-        z-index: 5;
-        border: 1px solid var(--border);
-    }
-
-    .home-active {
-        background: #fff;
-        color: #000;
-    }
-
-    /* Burger Lines */
-    .lines {
-        width: 14px;
-        height: 2px;
-        background: #000;
-        position: absolute;
-    }
-    .line-1 { transform: translateY(-4px); }
-    .line-3 { transform: translateY(4px); }
-
-    /* Spread Distance - Mobile Optimized */
-    .menu-open:checked ~ .menu-item:nth-child(3) { transform: translate3d(-50px, 0, 0); }
-    .menu-open:checked ~ .menu-item:nth-child(4) { transform: translate3d(-95px, 0, 0); }
-    .menu-open:checked ~ .menu-item:nth-child(5) { transform: translate3d(-140px, 0, 0); }
-
-    /* Hover effect reduced to prevent stutter on mobile */
-    @media (hover: hover) {
-        .menu-item:hover { background: #fff; color: #000; }
-    }
-
-    /* Extra Mobile Tweaks */
-    @media (max-width: 400px) {
-        .logo { font-size: 16px; }
-        .logo span { font-size: 12px; }
-        .nav-wrapper { width: 95%; }
-    }
-</style>
+</body>
+</html>
